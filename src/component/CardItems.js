@@ -21,7 +21,6 @@ function CardItems(props) {
 
     return (
         <Card className={classes.card}>
-             <CardActionArea>
                 <CardMedia
                 className={classes.media}
                 image={api.getImageUrl(props.item.picture)}
@@ -38,7 +37,6 @@ function CardItems(props) {
                     {props.item.exchangeRate} carrots
                 </Typography>
                 </CardContent>
-            </CardActionArea>
             <CardActions>
                 <Button size="small" color="primary" variant="contained" fullWidth={true}>
                 Details

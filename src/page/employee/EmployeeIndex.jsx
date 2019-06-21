@@ -11,16 +11,16 @@ import {
   Paper,
   Box
 } from "@material-ui/core";
-import api from "../../lib/Api"
-import {connect} from "react-redux"
-import carrotImage from "../../resources/carrot_icon.png"
-import transactionImage from "../../resources/transaction.png"
+import api from "../../lib/Api";
+import { connect } from "react-redux";
+import carrotImage from "../../resources/carrot_icon.png";
+import transactionImage from "../../resources/transaction.png";
 import CardItems from "../../component/CardItems";
 
-const style = (theme => ({
+const style = theme => ({
   card: {
     display: "flex",
-    height:"150px"
+    height: "150px"
   },
   cardDetails: {
     flex: 1
@@ -28,30 +28,38 @@ const style = (theme => ({
   cardMedia: {
     width: 160
   },
-  dashboard:{
-      marginBottom:theme.spacing(2)
+  dashboard: {
+    marginBottom: theme.spacing(2)
   }
-}));
+});
 
 class EmployeeIndex extends Component {
-  state={}
+  state = {};
 
-  componentDidMount(){
-      api.get_employee_bazaar().then(res=>this.setState({bazaar:res}))
+  componentDidMount() {
+    api.get_employee_bazaar().then(res => this.setState({ bazaar: res }));
   }
 
   render() {
-    const props=this.props;
-    
+    const props = this.props;
+
     return (
       <Container size="lg">
-        <Typography component="h1" variant="h4" paragraph={true} className={props.dashboard}>
+        <Typography
+          component="h1"
+          variant="h4"
+          paragraph={true}
+          className={props.dashboard}
+        >
           Dashboard
         </Typography>
         <Grid container spacing={3}>
           <Grid item md={4} xs={12}>
             <CardActionArea>
-              <Card className={props.classes.card} style={{backgroundColor:"#303F9F",color:"white"}}>
+              <Card
+                className={props.classes.card}
+                style={{ backgroundColor: "#303F9F", color: "white" }}
+              >
                 <div className={props.classes.cardDetails}>
                   <CardContent>
                     <Typography component="h2" variant="h5">
@@ -61,7 +69,8 @@ class EmployeeIndex extends Component {
                       {props.user.type}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                      {props.user.jobFamily && props.user.jobFamily.name} - {props.user.jobFamily && props.user.jobFamily.description}
+                      {props.user.jobFamily && props.user.jobFamily.name} -{" "}
+                      {props.user.jobFamily && props.user.jobFamily.description}
                     </Typography>
                   </CardContent>
                 </div>
@@ -76,14 +85,19 @@ class EmployeeIndex extends Component {
 
           <Grid item md={4} xs={12}>
             <CardActionArea>
-              <Card className={props.classes.card} style={{backgroundColor:"#8BC34A"}}>
+              <Card
+                className={props.classes.card}
+                style={{ backgroundColor: "#8BC34A" }}
+              >
                 <div className={props.classes.cardDetails}>
                   <CardContent>
                     <Typography component="h2" variant="h5">
                       Carrot Basket
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                      You've earned {props.user.basket && props.user.basket.carrotAmounts} carrots!
+                      You've earned{" "}
+                      {props.user.basket && props.user.basket.carrotAmounts}{" "}
+                      carrots!
                     </Typography>
                   </CardContent>
                 </div>
@@ -98,7 +112,10 @@ class EmployeeIndex extends Component {
 
           <Grid item md={4} xs={12}>
             <CardActionArea>
-              <Card className={props.classes.card} style={{backgroundColor:"#7C4DFF"}}>
+              <Card
+                className={props.classes.card}
+                style={{ backgroundColor: "#7C4DFF" }}
+              >
                 <div className={props.classes.cardDetails}>
                   <CardContent>
                     <Typography component="h2" variant="h5">
@@ -115,39 +132,47 @@ class EmployeeIndex extends Component {
             </CardActionArea>
           </Grid>
         </Grid>
-        
-        <Typography component="h1" variant="h4" paragraph={true} className={props.dashboard}>
+
+        <Typography
+          component="h1"
+          variant="h4"
+          paragraph={true}
+          className={props.dashboard}
+        >
           Bazaar
         </Typography>
 
-        {this.state.bazaar && this.state.bazaar.map((val,index)=>(
+        {this.state.bazaar &&
+          this.state.bazaar.map((val, index) => (
             <Box pb={3}>
-                <Paper elevation={5}>
-                    <Box p={2}>
-                        <Typography component="h1" variant="h5" paragraph={true} className={props.dashboard}>
-                            {val.name}
-                        </Typography>
-                        <Grid container spacing={4} key={index}>
-                            {val.items.map((val,index)=>(
-                                <Grid item md={3} xs={12} key={index}>
-                                    <CardActionArea>
-                                        <CardItems item={val}/>
-                                    </CardActionArea>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                </Paper>
+              <Paper elevation={5}>
+                <Box p={2}>
+                  <Typography
+                    component="h1"
+                    variant="h5"
+                    paragraph={true}
+                    className={props.dashboard}
+                  >
+                    {val.name}
+                  </Typography>
+                  <Grid container spacing={4} key={index}>
+                    {val.items.map((val, index) => (
+                      <Grid item md={3} xs={12} key={index}>
+                        <CardItems item={val} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              </Paper>
             </Box>
-        ))}        
-
+          ))}
       </Container>
     );
   }
 }
 
 export const mapStateToProps = state => ({
-    user:state.users.user
-})
+  user: state.users.user
+});
 
-export default  connect(mapStateToProps)(withStyles(style)(EmployeeIndex))
+export default connect(mapStateToProps)(withStyles(style)(EmployeeIndex));

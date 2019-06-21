@@ -25,8 +25,8 @@ class Login extends Base {
         e.preventDefault();
         api.do_login(this.state.login, this.onError)
             .then(res=>{
-                this.showInfoAlert("Success","Login success");
                 localStorage.setItem("token",res.accessToken);
+                this.props.history.push("/");
             }).catch(err=>{
                 this.showInfoAlert("Error","Something went wrong",true);
         })
